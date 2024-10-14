@@ -3,11 +3,11 @@ package com.seongjae.secureorder.data.di
 import com.seongjae.secureorder.data.repository.AuthRepository
 import com.seongjae.secureorder.data.repository.MenuRepository
 import com.seongjae.secureorder.data.repository.VerificationRepository
-import com.seongjae.secureorder.data.source.api.AuthApi
-import com.seongjae.secureorder.data.source.api.MenuApi
-import com.seongjae.secureorder.data.source.api.VerificationApi
-import com.seongjae.secureorder.data.source.dao.MenuDao
-import com.seongjae.secureorder.data.source.datastore.JwtDataStore
+import com.seongjae.secureorder.data.source.remote.api.AuthApi
+import com.seongjae.secureorder.data.source.remote.api.MenuApi
+import com.seongjae.secureorder.data.source.remote.api.VerificationApi
+import com.seongjae.secureorder.data.source.local.dao.MenuDao
+import com.seongjae.secureorder.data.source.local.datastore.JwtDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

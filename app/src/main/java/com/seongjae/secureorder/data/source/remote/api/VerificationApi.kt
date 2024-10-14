@@ -1,4 +1,4 @@
-package com.seongjae.secureorder.data.source.api
+package com.seongjae.secureorder.data.source.remote.api
 
 import com.seongjae.secureorder.data.model.OcrDataModel
 import okhttp3.MultipartBody

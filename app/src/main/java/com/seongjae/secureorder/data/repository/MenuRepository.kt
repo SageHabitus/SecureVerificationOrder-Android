@@ -1,7 +1,7 @@
 package com.seongjae.secureorder.data.repository
 
-import com.seongjae.secureorder.data.source.api.MenuApi
-import com.seongjae.secureorder.data.source.dao.MenuDao
+import com.seongjae.secureorder.data.source.remote.api.MenuApi
+import com.seongjae.secureorder.data.source.local.dao.MenuDao
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 

@@ -50,7 +50,7 @@ fun OtpScreen(
 @Composable
 fun OtpForm(
     state: OtpState,
-    onOtpChanged: (Int) -> Unit,
+    onOtpChanged: (String) -> Unit,
     onOtpRequested: () -> Unit,
     onOtpSubmitted: () -> Unit
 ) {
@@ -58,7 +58,7 @@ fun OtpForm(
         OutlinedTextField(
             value = state.otp.toString(),
             modifier = Modifier,
-            onValueChange = { onOtpChanged(it.toIntOrNull() ?: 0) },
+            onValueChange = onOtpChanged,
             label = { Text("OTP 입력") },
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),

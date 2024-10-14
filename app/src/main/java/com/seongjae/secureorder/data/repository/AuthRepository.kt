@@ -1,8 +1,8 @@
 package com.seongjae.secureorder.data.repository
 
 import com.seongjae.secureorder.data.model.AuthDataModel
-import com.seongjae.secureorder.data.source.api.AuthApi
-import com.seongjae.secureorder.data.source.datastore.JwtDataStore
+import com.seongjae.secureorder.data.source.local.datastore.JwtDataStore
+import com.seongjae.secureorder.data.source.remote.api.AuthApi
 import javax.inject.Inject
 
 /**
@@ -15,5 +15,8 @@ class AuthRepository @Inject constructor(
 
     suspend fun signIn(email: String, password: String): AuthDataModel =
         authApi.signIn(email, password)
-            .also { response -> jwtDataStore.saveJwtToken(response.accessToken) }
+            .also { response ->
+                jwtDataStore.saveAccessToken(response.accessToken)
+                jwtDataStore.saveRefreshToken(response.refreshToken)
+            }
 }

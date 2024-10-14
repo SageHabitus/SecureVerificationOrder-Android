@@ -1,4 +1,4 @@
-package com.seongjae.secureorder.data.source.api
+package com.seongjae.secureorder.data.source.remote.api
 
 import com.seongjae.secureorder.data.model.AuthDataModel
 import retrofit2.http.Body
@@ -13,11 +13,6 @@ interface AuthApi {
     suspend fun signIn(
         @Field("email") email: String,
         @Field("password") password: String
-    ): AuthDataModel
-
-    @POST("/api/auth/refresh")
-    suspend fun refreshToken(
-        @Body refreshToken: String
     ): AuthDataModel
 }
 

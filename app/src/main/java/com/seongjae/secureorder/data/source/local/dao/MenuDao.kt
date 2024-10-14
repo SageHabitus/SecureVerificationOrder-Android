@@ -1,4 +1,4 @@
-package com.seongjae.secureorder.data.source.dao
+package com.seongjae.secureorder.data.source.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

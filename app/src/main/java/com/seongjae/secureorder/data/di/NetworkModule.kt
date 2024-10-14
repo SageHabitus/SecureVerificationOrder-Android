@@ -2,17 +2,19 @@
 
 package com.seongjae.secureorder.data.di
 
+import com.seongjae.secureorder.data.source.remote.auth.AuthInterceptor
+import com.seongjae.secureorder.data.source.remote.auth.Authenticator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -23,26 +25,11 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit =
-        Retrofit.Builder()
+    @Named("withAuth")
+    fun provideRetrofitWithAuth(@Named("withAuth") okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(
-                OkHttpClient.Builder()
-                    .addInterceptor(
-                        Interceptor { chain ->
-                            val original = chain.request()
-                            val requestBuilder = original.newBuilder()
-//                                .header("Authorization", "api_key")
-                            val request = requestBuilder.build()
-                            chain.proceed(request)
-                        }
-                    )
-                    .addInterceptor(
-                        HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
-                    )
-                    .build()
-            )
-
+            .client(okHttpClient)
             .addConverterFactory(
                 Json {
                     ignoreUnknownKeys = true
@@ -50,4 +37,49 @@ object NetworkModule {
                 }.asConverterFactory("application/json".toMediaType())
             )
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofitWithoutAuth(@Named("withoutAuth") okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(
+                Json {
+                    ignoreUnknownKeys = true
+                    isLenient = true
+                }.asConverterFactory("application/json".toMediaType())
+            )
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    @Named("withAuth")
+    fun provideOkHttpClientWithAuth(
+        authInterceptor: AuthInterceptor,
+        authenticator: Authenticator
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
+            .authenticator(authenticator)
+            .addInterceptor(
+                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+            )
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    @Named("withoutAuth")
+    fun provideOkHttpClientWithoutAuth(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(
+                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+            )
+            .build()
+    }
+
 }
+

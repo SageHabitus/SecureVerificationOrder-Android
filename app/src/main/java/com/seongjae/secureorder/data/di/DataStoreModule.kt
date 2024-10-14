@@ -1,7 +1,7 @@
 package com.seongjae.secureorder.data.di
 
 import android.content.Context
-import com.seongjae.secureorder.data.source.datastore.JwtDataStore
+import com.seongjae.secureorder.data.source.local.datastore.JwtDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

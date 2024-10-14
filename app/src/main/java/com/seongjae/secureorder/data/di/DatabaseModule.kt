@@ -2,8 +2,8 @@ package com.seongjae.secureorder.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.seongjae.secureorder.data.source.dao.MenuDao
-import com.seongjae.secureorder.data.source.db.LocalDatabase
+import com.seongjae.secureorder.data.source.local.dao.MenuDao
+import com.seongjae.secureorder.data.source.local.db.LocalDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

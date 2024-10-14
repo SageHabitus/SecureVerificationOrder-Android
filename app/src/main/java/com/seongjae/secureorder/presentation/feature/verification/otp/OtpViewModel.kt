@@ -18,11 +18,11 @@ class OtpViewModel @Inject constructor(
     private val _otpState = MutableStateFlow(OtpState())
     val otpState: StateFlow<OtpState> = _otpState
 
-    fun onOtpChanged(otp: Int) =
+    fun onOtpChanged(otp: String) =
         _otpState.update { it.copy(otp = otp) }
 
     fun onOtpRequested() = viewModelScope.launch {
-        verificationRepository.sendOtp()
+        // TODO
     }
 
     fun onOtpSubmitted() = viewModelScope.launch {
