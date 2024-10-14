@@ -1,6 +1,8 @@
 package com.seongjae.secureorder.presentation.feature.verification.otp
 
 data class OtpState(
+    val otp: Int = 0,
+    val email: String = "",
     val viewState: OtpViewState = OtpViewState.Idle,
 )
 
